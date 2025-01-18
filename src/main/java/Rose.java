@@ -59,7 +59,21 @@ public class Rose {
                     } catch (Exception e) {
                         System.out.println(" Invalid task number!");
                     }
-                } else if (input.startsWith("todo ")) {
+                } else if (input.startsWith("delete ")) {
+                    try {
+                        int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+                        System.out.println("____________________________________________________________");
+                        System.out.println(" Noted. I've removed this task:");
+                        System.out.println("   " + tasks.get(taskNumber));
+                        tasks.remove(taskNumber);
+                        taskCount--;
+                        System.out.println("Now you have " + taskCount + " tasks in the list.");
+                        System.out.println("____________________________________________________________");
+                    } catch (Exception e) {
+                        System.out.println(" Invalid task number!");
+                    }
+                }
+                else if (input.startsWith("todo ")) {
                     String description = input.substring(5).trim();
                     if (description.isEmpty()) {
                         throw new RoseException("The description of a todo cannot be empty.");
