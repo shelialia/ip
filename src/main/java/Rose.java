@@ -1,28 +1,25 @@
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Rose {
-    public static void main(String[] args) throws IOException {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm Rose");
-        System.out.println(" What can I do for you?");
-        System.out.println("____________________________________________________________");
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
-        String filePath = "data/Rose.txt";
-        Storage storage = new Storage(filePath);
-        ArrayList<Task> tasks;
-        int taskCount;
+    public Rose(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
 
         try {
-            tasks = storage.load();
-            taskCount = tasks.size();
-            System.out.println("Loaded tasks from file.");
-        } catch (Exception e) {
-            tasks = new ArrayList<>();
-            taskCount = 0;
-            System.out.println("No previous tasks found. Starting fresh.");
+            tasks = new TaskList(storage.load());
+        } catch (RoseException | IOException e) {
+            ui.showError("Failed to load tasks. Starting fresh.");
+            tasks = new TaskList();
         }
+    }
+
+    public void run() {
+        ui.greet();
 
         Scanner scanner = new Scanner(System.in);
 
@@ -30,146 +27,70 @@ public class Rose {
             String input = scanner.nextLine();
 
             try {
-                if (input.isEmpty()) {
-                    throw new RoseException("Empty tasks are not accepted. Please try again.");
-                }
-                if (input.equalsIgnoreCase("bye")) {
-                    // Exit message
-                    System.out.println("____________________________________________________________");
-                    System.out.println(" Bye. Hope to see you again soon!");
-                    System.out.println("____________________________________________________________");
-                    break;
-                } else if (input.equalsIgnoreCase("list")) {
-                    System.out.println("____________________________________________________________");
-                    if (taskCount == 0) {
-                        System.out.println("You have not added any tasks!");
-                    } else {
-                        System.out.println(" Here are the tasks in your list:");
-                        for (int i = 0; i < taskCount; i++) {
-                            System.out.println(" " + (i + 1) + "." + tasks.get(i));
-                        }
-                    }
-                    System.out.println("____________________________________________________________");
-                } else if (input.startsWith("mark ")) {
-                    try {
-                        int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
-                        tasks.get(taskNumber).markAsDone();
-                        try {
-                            storage.save(tasks); // Save the entire task list
-                            System.out.println("Task saved successfully.");
-                        } catch (IOException e) {
-                            System.out.println("An error occurred while saving tasks: " + e.getMessage());
-                        }
-                        System.out.println("____________________________________________________________");
-                        System.out.println(" Nice! I've marked this task as done:");
-                        System.out.println("   " + tasks.get(taskNumber));
-                        System.out.println("____________________________________________________________");
-                    } catch (Exception e) {
-                        System.out.println(" Invalid task number!");
-                    }
-                } else if (input.startsWith("unmark ")) {
-                    // Mark a task as not done
-                    try {
-                        int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
-                        tasks.get(taskNumber).markAsNotDone();
-                        try {
-                            storage.save(tasks); // Save the entire task list
-                            System.out.println("Task saved successfully.");
-                        } catch (IOException e) {
-                            System.out.println("An error occurred while saving tasks: " + e.getMessage());
-                        }
-                        System.out.println("____________________________________________________________");
-                        System.out.println(" OK, I've marked this task as not done yet:");
-                        System.out.println("   " + tasks.get(taskNumber));
-                        System.out.println("____________________________________________________________");
-                    } catch (Exception e) {
-                        System.out.println(" Invalid task number!");
-                    }
-                } else if (input.startsWith("delete ")) {
-                    try {
-                        int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
-                        System.out.println("____________________________________________________________");
-                        System.out.println(" Noted. I've removed this task:");
-                        System.out.println("   " + tasks.get(taskNumber));
-                        tasks.remove(taskNumber);
-                        taskCount--;
-                        try {
-                            storage.save(tasks); // Save the entire task list
-                            System.out.println("Task saved successfully.");
-                        } catch (IOException e) {
-                            System.out.println("An error occurred while saving tasks: " + e.getMessage());
-                        }
-                        System.out.println("Now you have " + taskCount + " tasks in the list.");
-                        System.out.println("____________________________________________________________");
-                    } catch (Exception e) {
-                        System.out.println(" Invalid task number!");
-                    }
-                }
-                else if (input.startsWith("todo ")) {
-                    String description = input.substring(5).trim();
-                    if (description.isEmpty()) {
-                        throw new RoseException("The description of a todo cannot be empty.");
-                    }
-                    tasks.add(new Todo(description, false));
-                    taskCount++;
-                    try {
-                        storage.save(tasks); // Save the entire task list
-                        System.out.println("Task saved successfully.");
-                    } catch (IOException e) {
-                        System.out.println("An error occurred while saving tasks: " + e.getMessage());
-                    }
+                Command command = Parser.parse(input);
 
-                    System.out.println("____________________________________________________________");
-                    System.out.println(" Got it. I've added this task:");
-                    System.out.println("   " + tasks.get(taskCount - 1));
-                    System.out.println(" Now you have " + taskCount + " tasks in the list.");
-                    System.out.println("____________________________________________________________");
-                } else if (input.startsWith("deadline ")) {
-                    String[] temp = input.substring(9).split(" /by ", 2);
-                    if (temp.length < 2 || temp[0].trim().isEmpty() || temp[1].trim().isEmpty()) {
-                        throw new RoseException("Invalid deadline format! Use: deadline <description> /by <time>");
-                    }
-                    tasks.add(new Deadline(temp[0].trim(), temp[1].trim(), false)); // Add new task
-                    taskCount++;
-                    try {
-                        storage.save(tasks); // Save the entire task list
-                        System.out.println("Task saved successfully.");
-                    } catch (IOException e) {
-                        System.out.println("An error occurred while saving tasks: " + e.getMessage());
-                    }
-                    System.out.println("____________________________________________________________");
-                    System.out.println(" Got it. I've added this task:");
-                    System.out.println("   " + tasks.get(taskCount - 1));
-                    System.out.println(" Now you have " + taskCount + " tasks in the list.");
-                    System.out.println("____________________________________________________________");
-                } else if (input.startsWith("event ")) {
-                    String[] temp = input.substring(6).split(" /from | /to ", 3);
-                    if (temp.length < 3 || temp[0].trim().isEmpty() || temp[1].trim().isEmpty() || temp[2].trim().isEmpty()) {
-                        throw new RoseException("Invalid event format! Use: event <description> /from <start> /to <end>");
-                    }
-                    tasks.add(new Event(temp[0].trim(), temp[1].trim(), temp[2].trim(), false));
-                    taskCount++;
-                    try {
-                        storage.save(tasks); // Save the entire task list
-                        System.out.println("Task saved successfully.");
-                    } catch (IOException e) {
-                        System.out.println("An error occurred while saving tasks: " + e.getMessage());
-                    }
+                switch (command.getCommand().toLowerCase()) {
+                    case "bye":
+                        ui.farewell();
+                        return;
 
-                    System.out.println("____________________________________________________________");
-                    System.out.println(" Got it. I've added this task:");
-                    System.out.println("   " + tasks.get(taskCount - 1));
-                    System.out.println(" Now you have " + taskCount + " tasks in the list.");
-                    System.out.println("____________________________________________________________");
-                } else {
-                    throw new RoseException("Please enter a valid task.");
+                    case "list":
+                        ui.showTaskList(tasks.getAllTasks());
+                        break;
+
+                    case "todo":
+                        String todoDescription = command.getArguments();
+                        tasks.addTask(new Todo(todoDescription, false));
+                        storage.save(tasks.getAllTasks());
+                        ui.showSuccess("Added task: " + todoDescription);
+                        break;
+
+                    case "deadline":
+                        String[] deadlineParts = command.getArguments().split(" /by ", 2);
+                        tasks.addTask(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim(), false));
+                        storage.save(tasks.getAllTasks());
+                        ui.showSuccess("Added deadline: " + deadlineParts[0].trim());
+                        break;
+
+                    case "event":
+                        String[] eventParts = command.getArguments().split(" /from | /to ", 3);
+                        tasks.addTask(new Event(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim(), false));
+                        storage.save(tasks.getAllTasks());
+                        ui.showSuccess("Added event: " + eventParts[0].trim());
+                        break;
+
+                    case "mark":
+                        int markIndex = Integer.parseInt(command.getArguments()) - 1;
+                        tasks.getTask(markIndex).markAsDone();
+                        storage.save(tasks.getAllTasks());
+                        ui.showSuccess("Marked task as done: " + tasks.getTask(markIndex));
+                        break;
+
+                    case "unmark":
+                        int unmarkIndex = Integer.parseInt(command.getArguments()) - 1;
+                        tasks.getTask(unmarkIndex).markAsNotDone();
+                        storage.save(tasks.getAllTasks());
+                        ui.showSuccess("Marked task as not done: " + tasks.getTask(unmarkIndex));
+                        break;
+
+                    case "delete":
+                        int deleteIndex = Integer.parseInt(command.getArguments()) - 1;
+                        Task deletedTask = tasks.getTask(deleteIndex);
+                        tasks.removeTask(deleteIndex);
+                        storage.save(tasks.getAllTasks());
+                        ui.showSuccess("Deleted task: " + deletedTask);
+                        break;
+
+                    default:
+                        ui.showError("Unknown command!");
                 }
-            } catch (RoseException e) {
-                System.out.println("____________________________________________________________");
-                System.out.println(e.getMessage());
-                System.out.println("____________________________________________________________");
+            } catch (Exception e) {
+                ui.showError(e.getMessage());
             }
         }
-        scanner.close();
+    }
+
+    public static void main(String[] args) {
+        new Rose("data/Rose.txt").run();
     }
 }
