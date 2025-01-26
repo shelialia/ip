@@ -1,15 +1,28 @@
 package rose.ui;
+
 import rose.ui.Deadline;
 import rose.ui.Event;
 
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * The {@code Rose} class represents the main application for managing tasks.
+ * It handles user input, processes commands, and interacts with other classes like {@link TaskList},
+ * {@link Storage}, {@link Ui}, and {@link Parser}.
+ */
 public class Rose {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a new {@code Rose} application.
+     * Initializes the storage, task list, and user interface.
+     * Loads tasks from the specified file, or starts fresh if the file cannot be loaded.
+     *
+     * @param filePath The file path where tasks are stored.
+     */
     public Rose(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -22,6 +35,10 @@ public class Rose {
         }
     }
 
+    /**
+     * Runs the main program loop for the {@code Rose} application.
+     * Handles user input, processes commands, and interacts with the {@link TaskList}.
+     */
     public void run() {
         ui.greet();
 
@@ -96,6 +113,11 @@ public class Rose {
         }
     }
 
+    /**
+     * The main entry point for the {@code Rose} application.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         new Rose("data/Rose.txt").run();
     }

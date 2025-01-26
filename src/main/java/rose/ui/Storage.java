@@ -10,13 +10,32 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The {@code Storage} class is responsible for loading tasks from a file
+ * and saving tasks to a file. It ensures that tasks are persisted between
+ * sessions of the application.
+ */
 public class Storage {
     private final String filePath;
+
+    /**
+     * Constructs a {@code Storage} object with the specified file path.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    public ArrayList<Task> load () throws RoseException, IOException {
+    /**
+     * Loads tasks from the specified file.
+     * If the file does not exist, it creates the file and the necessary directories.
+     *
+     * @return An {@link ArrayList} of tasks loaded from the file.
+     * @throws RoseException If the file contains invalid or corrupted data.
+     * @throws IOException   If there is an error creating the file or directory.
+     */
+    public ArrayList<Task> load() throws RoseException, IOException {
         File file = new File(filePath);
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -43,7 +62,13 @@ public class Storage {
         return tasks;
     }
 
-    // Parse a line from the file into a rose.ui.Task
+    /**
+     * Parses a line from the file into a {@link Task}.
+     *
+     * @param line A line from the file representing a task.
+     * @return A {@link Task} object corresponding to the line.
+     * @throws RoseException If the line format is invalid or the task type is unknown.
+     */
     private Task parseTask(String line) throws RoseException {
         String[] parts = line.split(" \\| ");
         String taskType = parts[0];
@@ -61,8 +86,12 @@ public class Storage {
         }
     }
 
-    // Save tasks to the file
-    // Save all tasks to the file
+    /**
+     * Saves all tasks to the file, overwriting any existing content.
+     *
+     * @param tasks An {@link ArrayList} of tasks to be saved to the file.
+     * @throws IOException If there is an error writing to the file.
+     */
     public void save(ArrayList<Task> tasks) throws IOException {
         try (FileWriter writer = new FileWriter(filePath)) { // Overwrite the file
             for (Task task : tasks) {

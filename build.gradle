@@ -28,12 +28,13 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("rose.ui.Rose")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
-    archiveClassifier = null
+    archiveBaseName.set("Rose")
+    archiveClassifier.set("") // No classifier (e.g., "all")
+    archiveVersion.set("") // No version number in the filename
 }
 
 run{
