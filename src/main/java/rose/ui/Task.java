@@ -1,5 +1,6 @@
 package rose.ui;
 
+<<<<<<< HEAD
 import rose.ui.TaskType;
 
 /**
@@ -7,6 +8,8 @@ import rose.ui.TaskType;
  * a completion status, and a specific task type.
  * It serves as an abstract base class for specific task types such as {@link Todo}, {@link Deadline}, and {@link Event}.
  */
+=======
+>>>>>>> branch-A-CodingStandard
 public abstract class Task {
     /**
      * The description of the task.

@@ -1,8 +1,4 @@
 package rose.ui;
-
-import rose.ui.Deadline;
-import rose.ui.Event;
-
 import java.io.IOException;
 import java.util.Scanner;
 

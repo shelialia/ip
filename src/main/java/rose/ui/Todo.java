@@ -1,7 +1,5 @@
 package rose.ui;
 
-import rose.ui.TaskType;
-
 /**
  * The {@code Todo} class represents a simple task that contains only a description
  * and a completion status. It is a subclass of the {@link Task} class.
