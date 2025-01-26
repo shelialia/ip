@@ -1,2 +1,3 @@
 T | 0 | 2103 ip
-T | 0 | sayhi
+D | 1 | meow | 2025-01-26 1800
+E | 0 | birthday | tonighttomorrow

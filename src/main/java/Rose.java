@@ -47,16 +47,18 @@ public class Rose {
 
                     case "deadline":
                         String[] deadlineParts = command.getArguments().split(" /by ", 2);
-                        tasks.addTask(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim(), false));
+                        Deadline deadline_task = new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim(), false);
+                        tasks.addTask(deadline_task);
                         storage.save(tasks.getAllTasks());
-                        ui.showSuccess("Added deadline: " + deadlineParts[0].trim());
+                        ui.showSuccess("Added deadline: " + deadline_task);
                         break;
 
                     case "event":
                         String[] eventParts = command.getArguments().split(" /from | /to ", 3);
-                        tasks.addTask(new Event(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim(), false));
+                        Event event_task = new Event(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim(), false);
+                        tasks.addTask(event_task);
                         storage.save(tasks.getAllTasks());
-                        ui.showSuccess("Added event: " + eventParts[0].trim());
+                        ui.showSuccess("Added event: " + event_task);
                         break;
 
                     case "mark":
