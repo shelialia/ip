@@ -1,15 +1,29 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Rose {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println("____________________________________________________________");
         System.out.println(" Hello! I'm Rose");
         System.out.println(" What can I do for you?");
         System.out.println("____________________________________________________________");
 
-        ArrayList<Task> tasks = new ArrayList<>();
-        int taskCount = 0;
+        String filePath = "data/Rose.txt";
+        Storage storage = new Storage(filePath);
+        ArrayList<Task> tasks;
+        int taskCount;
+
+        try {
+            tasks = storage.load();
+            taskCount = tasks.size();
+            System.out.println("Loaded tasks from file.");
+        } catch (Exception e) {
+            tasks = new ArrayList<>();
+            taskCount = 0;
+            System.out.println("No previous tasks found. Starting fresh.");
+        }
+
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -40,6 +54,12 @@ public class Rose {
                     try {
                         int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
                         tasks.get(taskNumber).markAsDone();
+                        try {
+                            storage.save(tasks); // Save the entire task list
+                            System.out.println("Task saved successfully.");
+                        } catch (IOException e) {
+                            System.out.println("An error occurred while saving tasks: " + e.getMessage());
+                        }
                         System.out.println("____________________________________________________________");
                         System.out.println(" Nice! I've marked this task as done:");
                         System.out.println("   " + tasks.get(taskNumber));
@@ -52,6 +72,12 @@ public class Rose {
                     try {
                         int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
                         tasks.get(taskNumber).markAsNotDone();
+                        try {
+                            storage.save(tasks); // Save the entire task list
+                            System.out.println("Task saved successfully.");
+                        } catch (IOException e) {
+                            System.out.println("An error occurred while saving tasks: " + e.getMessage());
+                        }
                         System.out.println("____________________________________________________________");
                         System.out.println(" OK, I've marked this task as not done yet:");
                         System.out.println("   " + tasks.get(taskNumber));
@@ -67,6 +93,12 @@ public class Rose {
                         System.out.println("   " + tasks.get(taskNumber));
                         tasks.remove(taskNumber);
                         taskCount--;
+                        try {
+                            storage.save(tasks); // Save the entire task list
+                            System.out.println("Task saved successfully.");
+                        } catch (IOException e) {
+                            System.out.println("An error occurred while saving tasks: " + e.getMessage());
+                        }
                         System.out.println("Now you have " + taskCount + " tasks in the list.");
                         System.out.println("____________________________________________________________");
                     } catch (Exception e) {
@@ -78,8 +110,15 @@ public class Rose {
                     if (description.isEmpty()) {
                         throw new RoseException("The description of a todo cannot be empty.");
                     }
-                    tasks.add(new Todo(description));
+                    tasks.add(new Todo(description, false));
                     taskCount++;
+                    try {
+                        storage.save(tasks); // Save the entire task list
+                        System.out.println("Task saved successfully.");
+                    } catch (IOException e) {
+                        System.out.println("An error occurred while saving tasks: " + e.getMessage());
+                    }
+
                     System.out.println("____________________________________________________________");
                     System.out.println(" Got it. I've added this task:");
                     System.out.println("   " + tasks.get(taskCount - 1));
@@ -90,8 +129,14 @@ public class Rose {
                     if (temp.length < 2 || temp[0].trim().isEmpty() || temp[1].trim().isEmpty()) {
                         throw new RoseException("Invalid deadline format! Use: deadline <description> /by <time>");
                     }
-                    tasks.add(new Deadline(temp[0].trim(), temp[1].trim()));
+                    tasks.add(new Deadline(temp[0].trim(), temp[1].trim(), false)); // Add new task
                     taskCount++;
+                    try {
+                        storage.save(tasks); // Save the entire task list
+                        System.out.println("Task saved successfully.");
+                    } catch (IOException e) {
+                        System.out.println("An error occurred while saving tasks: " + e.getMessage());
+                    }
                     System.out.println("____________________________________________________________");
                     System.out.println(" Got it. I've added this task:");
                     System.out.println("   " + tasks.get(taskCount - 1));
@@ -102,8 +147,15 @@ public class Rose {
                     if (temp.length < 3 || temp[0].trim().isEmpty() || temp[1].trim().isEmpty() || temp[2].trim().isEmpty()) {
                         throw new RoseException("Invalid event format! Use: event <description> /from <start> /to <end>");
                     }
-                    tasks.add(new Event(temp[0].trim(), temp[1].trim(), temp[2].trim()));
+                    tasks.add(new Event(temp[0].trim(), temp[1].trim(), temp[2].trim(), false));
                     taskCount++;
+                    try {
+                        storage.save(tasks); // Save the entire task list
+                        System.out.println("Task saved successfully.");
+                    } catch (IOException e) {
+                        System.out.println("An error occurred while saving tasks: " + e.getMessage());
+                    }
+
                     System.out.println("____________________________________________________________");
                     System.out.println(" Got it. I've added this task:");
                     System.out.println("   " + tasks.get(taskCount - 1));

@@ -1,11 +1,11 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
     protected TaskType tasktype;
 
-    public Task(String description, TaskType tasktype) {
+    public Task(String description, TaskType tasktype, boolean isDone) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
         this.tasktype = tasktype;
     }
 
@@ -20,6 +20,12 @@ public class Task {
     public void markAsNotDone() {
         isDone = false;
     }
+
+    public String toFileFormatPrefix() {
+        return isDone? " | 1 | ": " | 0 | ";
+    }
+
+    public abstract String toFileFormat();
 
     @Override
     public String toString() {
