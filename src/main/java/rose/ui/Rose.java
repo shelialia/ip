@@ -1,4 +1,4 @@
-package rose.ui
+package rose.ui;
 import rose.ui.Deadline;
 import rose.ui.Event;
 
