@@ -1,3 +1,7 @@
+package rose.ui;
+
+import rose.ui.TaskType;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
