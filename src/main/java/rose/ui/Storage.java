@@ -1,9 +1,4 @@
 package rose.ui;
-
-import rose.ui.Deadline;
-import rose.ui.Event;
-import rose.ui.RoseException;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
