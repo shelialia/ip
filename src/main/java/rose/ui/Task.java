@@ -2,6 +2,8 @@ package rose.ui;
 
 import rose.ui.TaskType;
 
+import java.util.ArrayList;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
