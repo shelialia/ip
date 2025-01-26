@@ -3,6 +3,7 @@ import rose.ui.Deadline;
 import rose.ui.Event;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Rose {
@@ -17,7 +18,7 @@ public class Rose {
         try {
             tasks = new TaskList(storage.load());
         } catch (RoseException | IOException e) {
-            ui.showError("Failed to load tasks. Starting fresh.");
+            ui.showError("Failed to load tasks." + e.getMessage());
             tasks = new TaskList();
         }
     }
@@ -40,6 +41,11 @@ public class Rose {
 
                     case "list":
                         ui.showTaskList(tasks.getAllTasks());
+                        break;
+
+                    case "find":
+                        ArrayList<Task> matchingTasks = tasks.findTasks(command.getArguments());
+                        ui.displayTasks(matchingTasks);
                         break;
 
                     case "todo":

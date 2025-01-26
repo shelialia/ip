@@ -1,5 +1,6 @@
 package rose.ui;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Ui {
@@ -15,6 +16,19 @@ public class Ui {
     public void farewell() {
         System.out.println("____________________________________________________________");
         System.out.println(" Bye. Hope to see you again soon!");
+        System.out.println("____________________________________________________________");
+    }
+
+    public void displayTasks(ArrayList<Task> tasks) {
+        System.out.println("____________________________________________________________");
+        if (tasks.isEmpty()) {
+            System.out.println("No matching tasks. Try searching again.");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + ". " + tasks.get(i));
+            }
+        }
         System.out.println("____________________________________________________________");
     }
 
