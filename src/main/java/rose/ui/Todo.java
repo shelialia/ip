@@ -1,3 +1,7 @@
+package rose.ui;
+
+import rose.ui.TaskType;
+
 public class Todo extends Task {
     public Todo(String description, boolean isDone) {
         super(description, TaskType.TODO, isDone);

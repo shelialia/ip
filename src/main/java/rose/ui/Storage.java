@@ -1,3 +1,9 @@
+package rose.ui;
+
+import rose.ui.Deadline;
+import rose.ui.Event;
+import rose.ui.RoseException;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -37,7 +43,7 @@ public class Storage {
         return tasks;
     }
 
-    // Parse a line from the file into a Task
+    // Parse a line from the file into a rose.ui.Task
     private Task parseTask(String line) throws RoseException {
         String[] parts = line.split(" \\| ");
         String taskType = parts[0];

@@ -1,3 +1,5 @@
+package rose.ui;
+
 public class Parser {
     public static Command parse(String input) throws RoseException {
         if (input.isEmpty()) {
