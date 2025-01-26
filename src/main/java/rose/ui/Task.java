@@ -1,15 +1,11 @@
 package rose.ui;
 
-<<<<<<< HEAD
-import rose.ui.TaskType;
-
 /**
  * The {@code Task} class represents a general task with a description,
  * a completion status, and a specific task type.
  * It serves as an abstract base class for specific task types such as {@link Todo}, {@link Deadline}, and {@link Event}.
  */
-=======
->>>>>>> branch-A-CodingStandard
+
 public abstract class Task {
     /**
      * The description of the task.

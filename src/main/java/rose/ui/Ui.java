@@ -1,5 +1,6 @@
 package rose.ui;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -36,8 +37,21 @@ public class Ui {
     /**
      * Displays an error message to the user.
      *
-     * @param message The error message to be displayed.
+     * @param tasks The error message to be displayed.
      */
+    public void displayTasks(ArrayList<Task> tasks) {
+        System.out.println("____________________________________________________________");
+        if (tasks.isEmpty()) {
+            System.out.println("No matching tasks. Try searching again.");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + ". " + tasks.get(i));
+            }
+        }
+        System.out.println("____________________________________________________________");
+    }
+
     public void showError(String message) {
         System.out.println("____________________________________________________________");
         System.out.println("Error: " + message);
