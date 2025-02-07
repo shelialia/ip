@@ -116,6 +116,13 @@ public class Rose {
     }
 
     /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Rose heard: " + input;
+    }
+
+    /**
      * The main entry point for the {@code Rose} application.
      *
      * @param args Command-line arguments (not used).
