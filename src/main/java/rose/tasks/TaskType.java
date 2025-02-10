@@ -1,4 +1,4 @@
-package rose.ui;
+package rose.tasks;
 
 /**
  * The {@code TaskType} enum represents the type of tasks that can be managed in the application.

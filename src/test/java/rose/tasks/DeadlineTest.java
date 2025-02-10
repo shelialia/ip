@@ -1,6 +1,7 @@
-package rose.ui;
+package rose.tasks;
 
 import org.junit.jupiter.api.Test;
+import rose.tasks.Deadline;
 
 import java.time.format.DateTimeFormatter;
 

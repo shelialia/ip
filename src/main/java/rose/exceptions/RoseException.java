@@ -1,4 +1,4 @@
-package rose.ui;
+package rose.exceptions;
 
 /**
  * The {@code RoseException} class represents a custom exception used in the Rose application.

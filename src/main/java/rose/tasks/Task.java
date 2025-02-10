@@ -1,4 +1,4 @@
-package rose.ui;
+package rose.tasks;
 
 /**
  * The {@code Task} class represents a general task with a description,

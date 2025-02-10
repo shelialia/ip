@@ -1,12 +1,13 @@
 package rose.ui;
 
-import java.lang.reflect.Array;
+import rose.tasks.Task;
+
 import java.util.ArrayList;
 
 /**
  * The {@code Ui} class handles all interactions with the user.
- * It provides methods to display messages such as greetings, errors, success notifications,
- * and the list of tasks.
+ * It provides methods to generate messages such as greetings, errors, success notifications,
+ * and task lists.
  */
 public class Ui {
 
@@ -16,75 +17,76 @@ public class Ui {
     public Ui() {}
 
     /**
-     * Displays the greeting message when the program starts.
+     * Returns the greeting message when the program starts.
      */
-    public void greet() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm Rose");
-        System.out.println(" What can I do for you?");
-        System.out.println("____________________________________________________________");
+    public String greet() {
+        return "Hello! I'm Rose.\n"
+                + "What can I do for you?";
     }
 
     /**
-     * Displays the farewell message when the program exits.
+     * Returns the farewell message when the program exits.
      */
-    public void farewell() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+    public String farewell() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
-     * Displays an error message to the user.
+     * Returns an error message.
      *
-     * @param tasks The error message to be displayed.
+     * @param message The error message to be displayed.
+     * @return The formatted error message as a string.
      */
-    public void displayTasks(ArrayList<Task> tasks) {
-        System.out.println("____________________________________________________________");
-        if (tasks.isEmpty()) {
-            System.out.println("No matching tasks. Try searching again.");
-        } else {
-            System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + ". " + tasks.get(i));
-            }
-        }
-        System.out.println("____________________________________________________________");
-    }
-
-    public void showError(String message) {
-        System.out.println("____________________________________________________________");
-        System.out.println("Error: " + message);
-        System.out.println("____________________________________________________________");
+    public String showError(String message) {
+        return "Error: " + message;
     }
 
     /**
-     * Displays a success message to the user.
+     * Returns a success message.
      *
      * @param message The success message to be displayed.
+     * @return The formatted success message as a string.
      */
-    public void showSuccess(String message) {
-        System.out.println("____________________________________________________________");
-        System.out.println(message);
-        System.out.println("____________________________________________________________");
+    public String showSuccess(String message) {
+        return message;
     }
 
     /**
-     * Displays the list of tasks to the user.
+     * Returns a formatted string of tasks in the list.
      *
      * @param tasks An {@link ArrayList} of {@link Task} objects representing the tasks to be displayed.
-     *              If the list is empty, a message indicating no tasks is shown.
+     * @return The formatted task list as a string.
      */
-    public void showTaskList(ArrayList<Task> tasks) {
-        System.out.println("____________________________________________________________");
+    public String showTaskList(ArrayList<Task> tasks) {
+        return formatTaskList("Here are the tasks in your list:", tasks);
+    }
+
+    /**
+     * Returns a formatted string of searched tasks.
+     *
+     * @param tasks The list of matching tasks.
+     * @return The formatted string of tasks or a message if no matches were found.
+     */
+    public String displayTasks(ArrayList<Task> tasks) {
+        return formatTaskList("No matching tasks. Try searching again.", tasks);
+    }
+
+    /**
+     * Helper method to format a list of tasks into a string.
+     *
+     * @param emptyMessage The message to display if the list is empty.
+     * @param tasks The list of tasks.
+     * @return The formatted task list or the empty message.
+     */
+    private String formatTaskList(String emptyMessage, ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("You have no tasks!");
-        } else {
-            System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + ". " + tasks.get(i));
-            }
+            return emptyMessage;
         }
-        System.out.println("____________________________________________________________");
+
+        StringBuilder output = new StringBuilder("Here are the tasks in your list:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            output.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
+        }
+        return output.toString().trim();
     }
 }

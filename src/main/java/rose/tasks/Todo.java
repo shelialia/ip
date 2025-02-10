@@ -1,4 +1,4 @@
-package rose.ui;
+package rose.tasks;
 
 /**
  * The {@code Todo} class represents a simple task that contains only a description

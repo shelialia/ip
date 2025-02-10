@@ -1,4 +1,4 @@
-package rose.ui.gui;
+package rose.gui;
 
 import java.io.IOException;
 
@@ -7,8 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import rose.ui.Rose;
-import javafx.scene.image.Image;
+import rose.Rose;
 
 /**
  * A GUI for Duke using FXML.

@@ -1,4 +1,4 @@
-package rose.ui;
+package rose.tasks;
 
 /**
  * Represents an event task that has a description, a start time, an end time, and a completion status.
