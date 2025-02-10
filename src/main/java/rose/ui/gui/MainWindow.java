@@ -5,8 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import rose.ui.Rose;
 /**
  * Controller for the main GUI.
@@ -27,9 +26,7 @@ public class MainWindow extends AnchorPane {
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
-    public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-    }
+    public void initialize() {scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());}
 
     /** Injects the Duke instance */
     public void setRose(Rose r) {
