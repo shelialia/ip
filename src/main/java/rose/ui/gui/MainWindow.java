@@ -32,7 +32,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Duke instance */
-    public void setDuke(Rose r) {
+    public void setRose(Rose r) {
         rose = r;
     }
 
