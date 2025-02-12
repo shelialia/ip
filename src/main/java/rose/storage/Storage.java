@@ -25,6 +25,7 @@ public class Storage {
      * @param filePath The path to the file where tasks are stored.
      */
     public Storage(String filePath) {
+        assert filePath != null: "File path should not be null";
         this.filePath = filePath;
     }
 
@@ -71,6 +72,7 @@ public class Storage {
      * @throws RoseException If the line format is invalid or the task type is unknown.
      */
     private Task parseTask(String line) throws RoseException {
+        assert line != null : "Line to parse should not be null";
         String[] parts = line.split(" \\| ");
         String taskType = parts[0];
         boolean isDone = parts[1].equals("1");

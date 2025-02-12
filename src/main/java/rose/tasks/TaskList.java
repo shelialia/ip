@@ -78,6 +78,7 @@ public class TaskList {
     }
 
     public ArrayList<Task> findTasks(String keyword) {
+        assert keyword != null : "keyword should not be empty string";
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task t: tasks) {
             if (t.toString().toLowerCase().contains(keyword.toLowerCase())) {

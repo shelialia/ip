@@ -38,6 +38,7 @@ public class Ui {
      * @return The formatted error message as a string.
      */
     public String showError(String message) {
+        assert message != null : "Error message should not be null";
         return "Error: " + message;
     }
 
@@ -48,6 +49,7 @@ public class Ui {
      * @return The formatted success message as a string.
      */
     public String showSuccess(String message) {
+        assert message != null : "Success message should not be null";
         return message;
     }
 
