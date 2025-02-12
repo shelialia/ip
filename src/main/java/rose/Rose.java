@@ -126,65 +126,12 @@ public class Rose {
     /**
      * Generates a response for the user's chat message.
      */
-    public String getResponse(String input) throws RoseException {
+    public String getResponse(String input) throws RoseException, IOException {
+        Command command = Parser.parse(input);
         try {
-            Command command = Parser.parse(input);
-
-            switch (command.getCommand().toLowerCase()) {
-                case "bye":
-                    return ui.farewell();
-
-                case "list":
-                    return ui.showTaskList(tasks.getAllTasks());
-
-                case "find":
-                    ArrayList<Task> matchingTasks = tasks.findTasks(command.getArguments());
-                    return ui.displayTasks(matchingTasks);
-
-                case "todo":
-                    String todoDescription = command.getArguments();
-                    tasks.addTask(new Todo(todoDescription, false));
-                    storage.save(tasks.getAllTasks());
-                    return ui.showSuccess("Added task: " + todoDescription);
-
-                case "deadline":
-                    String[] deadlineParts = command.getArguments().split(" /by ", 2);
-                    Deadline deadline_task = new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim(), false);
-                    tasks.addTask(deadline_task);
-                    storage.save(tasks.getAllTasks());
-                    return ui.showSuccess("Added deadline: " + deadline_task);
-
-                case "event":
-                    String[] eventParts = command.getArguments().split(" /from | /to ", 3);
-                    Event event_task = new Event(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim(), false);
-                    tasks.addTask(event_task);
-                    storage.save(tasks.getAllTasks());
-                    return ui.showSuccess("Added event: " + event_task);
-
-                case "mark":
-                    int markIndex = Integer.parseInt(command.getArguments()) - 1;
-                    tasks.getTask(markIndex).markAsDone();
-                    storage.save(tasks.getAllTasks());
-                    return ui.showSuccess("Marked task as done: " + tasks.getTask(markIndex));
-
-                case "unmark":
-                    int unmarkIndex = Integer.parseInt(command.getArguments()) - 1;
-                    tasks.getTask(unmarkIndex).markAsNotDone();
-                    storage.save(tasks.getAllTasks());
-                    return ui.showSuccess("Marked task as not done: " + tasks.getTask(unmarkIndex));
-
-                case "delete":
-                    int deleteIndex = Integer.parseInt(command.getArguments()) - 1;
-                    Task deletedTask = tasks.getTask(deleteIndex);
-                    tasks.removeTask(deleteIndex);
-                    storage.save(tasks.getAllTasks());
-                    return ui.showSuccess("Deleted task: " + deletedTask);
-
-                default:
-                    return ui.showError("Unknown command!");
-            }
-        } catch (Exception e) {
-            throw new RoseException(e.getMessage());
+            return command.execute(tasks, ui, storage);
+        } catch (IOException e) {
+            throw new IOException(e.getMessage());
         }
     }
 
