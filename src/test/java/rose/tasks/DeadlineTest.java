@@ -22,7 +22,7 @@ class DeadlineTest {
         assertFalse(deadline.isDone);
 
         // Check if the date was parsed correctly
-        assertEquals("Dec 25 2025, 6:00 pm", deadline.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a")));
+        assertEquals("Dec 25 2025, 6:00 PM", deadline.by.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a")));
     }
 
     @Test
