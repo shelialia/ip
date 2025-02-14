@@ -16,6 +16,7 @@ public class Parser {
      * @throws RoseException If the input is empty.
      */
     public static Command parse(String input) throws RoseException {
+        assert input != null: "Input string should not be null!";
         if (input.isEmpty()) {
             throw new RoseException("Empty tasks are not accepted. Please try again.");
         }
