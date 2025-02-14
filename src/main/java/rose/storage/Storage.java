@@ -25,11 +25,7 @@ public class Storage {
      * @param filePath The path to the file where tasks are stored.
      */
     public Storage(String filePath) {
-<<<<<<< HEAD
-        assert filePath != null: "File path should not be null";
-=======
         assert filePath != null & !filePath.trim().isEmpty(): "File path should not be null or empty";
->>>>>>> 7598e9d54ece3ab3d4d77f8b04f2af2ca953bfbe
         this.filePath = filePath;
     }
 
