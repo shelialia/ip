@@ -1,5 +1,7 @@
 package rose.tasks;
 
+import rose.exceptions.RoseException;
+
 import java.util.ArrayList;
 
 /**
@@ -87,4 +89,12 @@ public class TaskList {
         }
         return matchingTasks;
     }
+
+    public void updateTask(int index, Task updatedTask) throws RoseException {
+        if (index < 0 || index >= tasks.size()) {
+            throw new RoseException("Invalid task index.");
+        }
+        tasks.set(index, updatedTask);
+    }
+
 }

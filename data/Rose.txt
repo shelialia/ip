@@ -1,4 +1,5 @@
 D | 1 | meow | 2025-01-26 1800
-E | 0 | birthday | tonight | tomorrow
+E | 0 | birthday | 4pm | 5pm
 T | 0 | say hello
 T | 1 | buy valentines gift
+E | 1 | vday | tdy | tmr

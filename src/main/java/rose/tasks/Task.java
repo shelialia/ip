@@ -76,6 +76,15 @@ public abstract class Task {
     public abstract String toFileFormat();
 
     /**
+     * Returns whether the task is completed.
+     *
+     * @return true if the task is completed, false otherwise.
+     */
+    public boolean isDone() {
+        return isDone;
+    }
+
+    /**
      * Returns a string representation of the task, including its status icon and description.
      *
      * @return A string representation of the task.

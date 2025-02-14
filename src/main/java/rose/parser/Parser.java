@@ -1,7 +1,10 @@
 package rose.parser;
 
+import rose.Rose;
 import rose.commands.*;
 import rose.exceptions.RoseException;
+
+import java.util.Arrays;
 
 /**
  * Parses user input and returns the corresponding Command object.
@@ -29,6 +32,9 @@ public class Parser {
 
             case "deadline":
                 return parseDeadline(arguments);
+
+            case "updateevent":
+                return parseUpdateEvent(arguments);
 
             case "event":
                 return parseEvent(arguments);
@@ -61,6 +67,46 @@ public class Parser {
         }
         return new AddEventCommand(parts[0].trim(), parts[1].trim(), parts[2].trim());
     }
+
+    private static Command parseUpdateEvent(String arguments) throws RoseException {
+        // Step 1: Extract the first word (index) from the rest
+        String[] firstSplit = arguments.split(" ", 2);
+        if (firstSplit.length < 2) {
+            throw new RoseException("Invalid format! Use: updateEvent <index> [/from <new start>] [/to <new end>]");
+        }
+
+        // Step 2: Convert index (1-based to 0-based)
+        int index;
+        try {
+            index = Integer.parseInt(firstSplit[0].trim()) - 1;
+        } catch (NumberFormatException e) {
+            throw new RoseException("Invalid task index. Please provide a valid number.");
+        }
+
+        // Step 3: Split remaining arguments by "/from" and "/to"
+        String remainingArgs = firstSplit[1];
+
+        // Step 4: Extract new from/to times
+        String newFrom = null;
+        String newTo = null;
+
+        if (remainingArgs.contains("/from")) {
+            String[] fromParts = remainingArgs.split("/from ", 2);
+            if (fromParts.length > 1) {
+                newFrom = fromParts[1].contains("/to") ? fromParts[1].split(" /to ")[0].trim() : fromParts[1].trim();
+            }
+        }
+
+        if (remainingArgs.contains("/to")) {
+            String[] toParts = remainingArgs.split(" /to ", 2);
+            if (toParts.length > 1) {  // Ensure there's something after /to
+                newTo = toParts[1].trim();
+            }
+        }
+
+        return new UpdateEventCommand(index, newFrom, newTo);
+    }
+
 
     private static int parseIndex(String argument) throws RoseException {
         try {
