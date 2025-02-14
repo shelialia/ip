@@ -111,6 +111,6 @@ public class Rose {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-        new Rose("data/Rose.txt").run();
+        // new Rose("data/Rose.txt").run();
     }
 }
