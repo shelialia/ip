@@ -1,5 +1,8 @@
 package perrygpt.tasks;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents an event task that has a description, a start time, an end time, and a completion status.
  * Extends the {@link Task} class.
@@ -8,12 +11,14 @@ public class Event extends Task {
     /**
      * The start time of the event.
      */
-    protected String from;
+    protected LocalDateTime from;
 
     /**
      * The end time of the event.
      */
-    protected String to;
+    protected LocalDateTime to;
+    private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
 
     /**
      * Constructs an {@code Event} with the specified description, start time, end time, and completion status.
@@ -25,8 +30,8 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to, boolean isDone) {
         super(description, TaskType.EVENT, isDone);
-        this.from = from;
-        this.to = to;
+        this.from = LocalDateTime.parse(from, INPUT_FORMAT);
+        this.to = LocalDateTime.parse(to, INPUT_FORMAT);
     }
 
     /**
@@ -36,7 +41,8 @@ public class Event extends Task {
      */
     @Override
     public String toFileFormat() {
-        return "E" + super.toFileFormatPrefix() + super.description + " | " + this.from + " | " + this.to;
+        return "E" + super.toFileFormatPrefix() + super.description + " | " + this.from.format(INPUT_FORMAT)
+                + " | " + this.to.format(INPUT_FORMAT);
     }
 
     /**
@@ -45,7 +51,7 @@ public class Event extends Task {
      * @return The start time of the event.
      */
     public String getFrom() {
-        return from;
+        return from.format(INPUT_FORMAT);
     }
 
     /**
@@ -54,7 +60,7 @@ public class Event extends Task {
      * @return The end time of the event.
      */
     public String getTo() {
-        return to;
+        return to.format(INPUT_FORMAT);
     }
 
     /**
@@ -74,6 +80,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(OUTPUT_FORMAT) + " to: "
+                + to.format(OUTPUT_FORMAT) + ")";
     }
 }
