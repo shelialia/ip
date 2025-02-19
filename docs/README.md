@@ -1,6 +1,5 @@
 # PerryGPT User Guide
-
-// Product screenshot goes here
+![img.png](img.png)
 
 # An Introduction to PerryGPT
 An all-in-one desktop app that acts as your task manager, displayed via a Graphical User Interface (GUI).
