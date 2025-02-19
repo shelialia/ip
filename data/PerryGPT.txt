@@ -1,1 +1,3 @@
 T | 0 | go home
+E | 0 | hello | 6pm | 3pm
+D | 0 | bye2 | 2019-10-15 1923
