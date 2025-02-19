@@ -46,8 +46,8 @@ You may ask Ferb to add 3 ty&nbsp pes of tasks for you:
 3. Add a task with a start and end time (**Event Task**)
    * Usage: `event <task_description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>`
    * Example: `event Team meeting /from 2024-09 1000 /to 2024-09-20 1200`
-   * You should see a message from Ferb saying `Added event: [E][] Team meeting (from: Sept 20 2024, 10:00 am 
-   to: Sept 20 2024, 12:00 pm`
+   * You should see a message from Ferb saying `Added event: [E][] Team meeting (from Sept 20 2024, 10:00 am 
+   to Sept 20 2024, 12:00 pm)`
 
 #### ⭐ List all tasks
 You may ask Ferb to list all the tasks currently stored
