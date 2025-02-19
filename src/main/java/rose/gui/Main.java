@@ -5,17 +5,23 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import rose.Rose;
 
 /**
- * A GUI for Duke using FXML.
+ * The main entry point for the GUI application using JavaFX.
+ * This class initializes and launches the graphical user interface for Rose.
  */
 public class Main extends Application {
 
-    private Rose rose = new Rose("data/Rose.txt");
+    private final Rose rose = new Rose("data/Rose.txt");
 
+    /**
+     * Starts the GUI application by loading the FXML layout and setting up the primary stage.
+     *
+     * @param stage The primary stage for the application window.
+     */
     @Override
     public void start(Stage stage) {
         try {
@@ -23,7 +29,10 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setRose(rose);  // inject the Duke instance
+
+            // Inject the Rose instance into the controller
+            fxmlLoader.<MainWindow>getController().setRose(rose);
+
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
