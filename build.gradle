@@ -43,11 +43,11 @@ test {
 }
 
 application {
-    mainClass.set("rose.ui.Rose")
+    mainClass.set("perrygpt.ui.PerryGPT")
 }
 
 shadowJar {
-    archiveBaseName.set("Rose")
+    archiveBaseName.set("PerryGPT")
     archiveClassifier.set("") // No classifier (e.g., "all")
     archiveVersion.set("") // No version number in the filename
 }
