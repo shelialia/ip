@@ -1,4 +1,5 @@
 package rose.storage;
+
 import rose.tasks.Deadline;
 import rose.tasks.Event;
 import rose.tasks.Todo;
@@ -25,7 +26,7 @@ public class Storage {
      * @param filePath The path to the file where tasks are stored.
      */
     public Storage(String filePath) {
-        assert filePath != null & !filePath.trim().isEmpty(): "File path should not be null or empty";
+        assert filePath != null && !filePath.trim().isEmpty() : "File path should not be null or empty";
         this.filePath = filePath;
     }
 
@@ -43,7 +44,7 @@ public class Storage {
 
         if (!file.exists()) {
             File parentDir = file.getParentFile();
-            if (!parentDir.exists() && !parentDir.isDirectory()) {
+            if (parentDir != null && !parentDir.exists()) {
                 if (!parentDir.mkdirs()) {
                     throw new IOException("Failed to create directory: " + parentDir.getAbsolutePath());
                 }
@@ -52,8 +53,7 @@ public class Storage {
                 throw new IOException("Failed to create file: " + file.getAbsolutePath());
             }
         } else {
-            try {
-                Scanner s = new Scanner(file);
+            try (Scanner s = new Scanner(file)) {
                 while (s.hasNextLine()) {
                     tasks.add(parseTask(s.nextLine()));
                 }
@@ -72,8 +72,13 @@ public class Storage {
      * @throws RoseException If the line format is invalid or the task type is unknown.
      */
     private Task parseTask(String line) throws RoseException {
-        assert line != null && !line.isEmpty(): "Task line should not be null or empty string";
+        assert line != null && !line.isEmpty() : "Task line should not be null or empty string";
         String[] parts = line.split(" \\| ");
+
+        if (parts.length < 3) {
+            throw new RoseException("Corrupted data file! Unable to parse task.");
+        }
+
         String taskType = parts[0];
         boolean isDone = parts[1].equals("1");
 
@@ -81,11 +86,17 @@ public class Storage {
             case "T":
                 return new Todo(parts[2], isDone);
             case "D":
+                if (parts.length < 4) {
+                    throw new RoseException("Invalid deadline format in storage file.");
+                }
                 return new Deadline(parts[2], parts[3], isDone);
             case "E":
+                if (parts.length < 5) {
+                    throw new RoseException("Invalid event format in storage file.");
+                }
                 return new Event(parts[2], parts[3], parts[4], isDone);
             default:
-                throw new RoseException("Corrupted data file! Unable to parse task.");
+                throw new RoseException("Unknown task type in storage file.");
         }
     }
 
