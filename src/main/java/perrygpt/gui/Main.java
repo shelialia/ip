@@ -29,6 +29,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("PerryGPT");
 
             // Inject the Rose instance into the controller
             fxmlLoader.<MainWindow>getController().setPerry(perryGPT);
