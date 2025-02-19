@@ -6,13 +6,13 @@ import java.util.ArrayList;
 
 /**
  * The {@code TaskList} class represents a list of tasks.
- * It provides operations to manage the tasks, such as adding, removing, and retrieving tasks.
+ * It provides operations to manage the tasks, such as adding, removing, updating, and retrieving tasks.
  */
 public class TaskList {
     /**
      * The list of tasks being managed.
      */
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     /**
      * Constructs an empty {@code TaskList}.
@@ -79,10 +79,18 @@ public class TaskList {
         return tasks.size();
     }
 
+    /**
+     * Finds and returns a list of tasks that match the given keyword.
+     * A task is considered a match if its string representation contains the keyword (case insensitive).
+     *
+     * @param keyword The search keyword to filter tasks.
+     * @return An {@link ArrayList} of tasks that contain the keyword.
+     * @throws IllegalArgumentException If the keyword is null.
+     */
     public ArrayList<Task> findTasks(String keyword) {
-        assert keyword != null : "keyword should not be empty string";
+        assert keyword != null : "Keyword should not be null";
         ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (Task t: tasks) {
+        for (Task t : tasks) {
             if (t.toString().toLowerCase().contains(keyword.toLowerCase())) {
                 matchingTasks.add(t);
             }
@@ -90,11 +98,17 @@ public class TaskList {
         return matchingTasks;
     }
 
+    /**
+     * Updates a task at the specified index with a new task.
+     *
+     * @param index       The index of the task to update (zero-based).
+     * @param updatedTask The new {@link Task} to replace the existing one.
+     * @throws RoseException If the index is out of range (index < 0 or index >= size()).
+     */
     public void updateTask(int index, Task updatedTask) throws RoseException {
         if (index < 0 || index >= tasks.size()) {
             throw new RoseException("Invalid task index.");
         }
         tasks.set(index, updatedTask);
     }
-
 }
