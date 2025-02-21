@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("perrygpt.ui.PerryGPT")
+    mainClass.set("perrygpt.Launcher")
 }
 
 shadowJar {

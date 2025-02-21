@@ -44,9 +44,16 @@ You may ask Ferb to add 3 ty&nbsp pes of tasks for you:
 
 3. Add a task with a start and end time (**Event Task**)
    * Usage: `event <task_description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>`
-   * Example: `event Team meeting /from 2024-09 1000 /to 2024-09-20 1200`
+   * Example: `event Team meeting /from 2024-09-20 1000 /to 2024-09-20 1200`
    * You should see a message from Ferb saying `Added event: [E][] Team meeting (from Sept 20 2024, 10:00 am 
    to Sept 20 2024, 12:00 pm)`
+
+#### ⭐ Update the start and end time of an Event Task
+You may ask Ferb to update the start and end time of an Event task that is currently stored.
+  * Usage: `updateevent <event_task_index> /from <new_from_date_and_time> /to <new_to_date_and_time>` 
+  * Example: `updateevent 2 /from 2023-09-01 1000 /to 2023-09-01 1200`
+  * You should see a message from Ferb saying `Updated event: [E][] <task_description> (from Sept 01 2023, 10:00 am 
+  to Sept 01 2023, 12:00 pm)` 
 
 #### ⭐ List all tasks
 You may ask Ferb to list all the tasks currently stored
