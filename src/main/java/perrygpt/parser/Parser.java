@@ -69,7 +69,8 @@ public class Parser {
     private static Command parseDeadline(String arguments) throws PerryGPTException {
         String[] parts = arguments.split(" /by ", 2);
         if (parts.length < 2) {
-            throw new PerryGPTException("Invalid deadline format! Use: deadline <description> /by <date>");
+            throw new PerryGPTException("Invalid deadline format! Use: deadline <task_description> /by " +
+                    "<yyyy-MM-dd HHmm>");
         }
         return new AddDeadlineCommand(parts[0].trim(), parts[1].trim());
     }
@@ -84,7 +85,8 @@ public class Parser {
     private static Command parseEvent(String arguments) throws PerryGPTException {
         String[] parts = arguments.split(" /from | /to ", 3);
         if (parts.length < 3) {
-            throw new PerryGPTException("Invalid event format! Use: event <description> /from <start> /to <end>");
+            throw new PerryGPTException("Invalid event format! Use: event <task_description> " +
+                    "/from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>");
         }
         return new AddEventCommand(parts[0].trim(), parts[1].trim(), parts[2].trim());
     }
@@ -100,7 +102,8 @@ public class Parser {
         // Extract the first word (index) from the rest
         String[] firstSplit = arguments.split(" ", 2);
         if (firstSplit.length < 2) {
-            throw new PerryGPTException("Invalid format! Use: updateEvent <index> [/from <new start>] [/to <new end>]");
+            throw new PerryGPTException("Invalid format! Use: updateevent <event_task_index> " +
+                    "/from <new_from_date_and_time> /to <new_to_date_and_time>");
         }
 
         // Convert index (1-based to 0-based)
@@ -121,7 +124,8 @@ public class Parser {
         if (remainingArgs.contains("/from")) {
             String[] fromParts = remainingArgs.split("/from ", 2);
             if (fromParts.length > 1) {
-                newFrom = fromParts[1].contains("/to") ? fromParts[1].split(" /to ")[0].trim() : fromParts[1].trim();
+                newFrom = fromParts[1].contains("/to") ?
+                        fromParts[1].split(" /to ")[0].trim() : fromParts[1].trim();
             }
         }
 
