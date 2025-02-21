@@ -39,7 +39,7 @@ You may ask Ferb to add 3 ty&nbsp pes of tasks for you:
 
 2. Add a task with deadline and description (**Deadline Task**)
    * Usage: `deadline <task_description> /by <yyyy-MM-dd HHmm>`
-   * Example: `todo practice piano /by 2024-10-15 1923`
+   * Example: `deadline practice piano /by 2024-10-15 1923`
    * You should see a message from Ferb saying `Added deadline: [D][] practice piano (by Oct 15 2024, 7:23 pm)`
 
 3. Add a task with a start and end time (**Event Task**)
