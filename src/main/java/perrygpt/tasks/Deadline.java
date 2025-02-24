@@ -25,7 +25,7 @@ public class Deadline extends Task {
         try {
             this.by = LocalDateTime.parse(by, INPUT_FORMAT);
         } catch (Exception e) {
-            throw new PerryGPTException("Error: Incorrect date format. Follow: deadline <task_description> " +
+            throw new PerryGPTException("Invalid date format! Use: deadline <task_description> " +
                     "/by <yyyy-MM-dd HHmm> ");
         }
     }

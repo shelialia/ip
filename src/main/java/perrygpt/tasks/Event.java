@@ -1,5 +1,7 @@
 package perrygpt.tasks;
 
+import perrygpt.exceptions.PerryGPTException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -28,10 +30,15 @@ public class Event extends Task {
      * @param to          The end time of the event.
      * @param isDone      The completion status of the event.
      */
-    public Event(String description, String from, String to, boolean isDone) {
+    public Event(String description, String from, String to, boolean isDone) throws PerryGPTException {
         super(description, TaskType.EVENT, isDone);
-        this.from = LocalDateTime.parse(from, INPUT_FORMAT);
-        this.to = LocalDateTime.parse(to, INPUT_FORMAT);
+        try {
+            this.from = LocalDateTime.parse(from, INPUT_FORMAT);
+            this.to = LocalDateTime.parse(to, INPUT_FORMAT);
+        } catch (Exception e) {
+            throw new PerryGPTException("Invalid date format! " +
+                    "Use: event <task_description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>");
+        }
     }
 
     /**
