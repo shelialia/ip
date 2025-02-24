@@ -1,6 +1,7 @@
 package perrygpt.tasks;
 
 import org.junit.jupiter.api.Test;
+import perrygpt.exceptions.PerryGPTException;
 
 import java.time.format.DateTimeFormatter;
 
@@ -9,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class DeadlineTest {
 
     @Test
-    void constructor_shouldParseDateCorrectly() {
+    void constructor_shouldParseDateCorrectly() throws PerryGPTException {
         String description = "Submit report";
         String by = "2025-12-25 1800"; // Input in "yyyy-MM-dd HHmm" format
         boolean isDone = false;
@@ -25,7 +26,7 @@ class DeadlineTest {
     }
 
     @Test
-    void toFileFormat_shouldReturnCorrectFormat() {
+    void toFileFormat_shouldReturnCorrectFormat() throws PerryGPTException {
         String description = "Submit assignment";
         String by = "2023-10-15 0900"; // Input in "yyyy-MM-dd HHmm" format
         boolean isDone = true;

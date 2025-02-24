@@ -1,5 +1,7 @@
 package perrygpt.tasks;
 
+import perrygpt.exceptions.PerryGPTException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -18,9 +20,14 @@ public class Deadline extends Task {
      * @param by deadline of task
      * @param isDone tracks whether the task is complete
      */
-    public Deadline(String description, String by, boolean isDone) {
+    public Deadline(String description, String by, boolean isDone) throws PerryGPTException {
         super(description, TaskType.DEADLINE, isDone);
-        this.by = LocalDateTime.parse(by, INPUT_FORMAT);
+        try {
+            this.by = LocalDateTime.parse(by, INPUT_FORMAT);
+        } catch (Exception e) {
+            throw new PerryGPTException("Error: Incorrect date format. Follow: deadline <task_description> " +
+                    "/by <yyyy-MM-dd HHmm> ");
+        }
     }
 
     /**
