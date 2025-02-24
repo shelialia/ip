@@ -62,7 +62,7 @@ You may ask Ferb to list all the tasks currently stored
 
 #### ⭐ Find all tasks containing a keyword
 You may search for all tasks containing a specific keyword
-   * Usage: `list`
+   * Usage: `find`
    * You should see a message from Ferb with a list of all tasks containing that keyword
 
 #### ⭐ Delete tasks
@@ -71,7 +71,7 @@ You may delete a task by the task ID
    * Example: `delete 2`
    * You should see a message from Ferb to signal that the task has been deleted successfully.
 
-#### ⭐ Mark or unmark tasks
+#### ⭐ Mark or Unmark tasks
    * Usage: `mark <task_id>` or `unmark <task_id>` 
    * Example: `mark 2` or `unmark 3`
    * You should see a message from Ferb to signal that the task has been marked or unmark successfully.
