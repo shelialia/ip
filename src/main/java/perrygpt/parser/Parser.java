@@ -50,6 +50,10 @@ public class Parser {
                 int markIndex = parseIndex(arguments);
                 return new MarkCommand(markIndex);
 
+            case "unmark":
+                int unmarkIndex = parseIndex(arguments);
+                return new UnmarkCommand(unmarkIndex);
+
             case "delete":
                 int deleteIndex = parseIndex(arguments);
                 return new DeleteCommand(deleteIndex);
