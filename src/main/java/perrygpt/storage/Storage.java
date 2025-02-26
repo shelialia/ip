@@ -14,8 +14,8 @@ import java.util.Scanner;
 
 /**
  * The {@code Storage} class is responsible for loading tasks from a file
- * and saving tasks to a file. It ensures that tasks are persisted between
- * sessions of the application.
+ * and saving tasks to a file. It ensures that the information on tasks are
+ * persisted between sessions of the application.
  */
 public class Storage {
     private final String filePath;
