@@ -3,7 +3,8 @@ package perrygpt.tasks;
 /**
  * The {@code Task} class represents a general task with a description,
  * a completion status, and a specific task type.
- * It serves as an abstract base class for specific task types such as {@link Todo}, {@link Deadline}, and {@link Event}.
+ * It serves as an abstract base class for specific task types such as {@link Todo},
+ * {@link Deadline}, and {@link Event}.
  */
 
 public abstract class Task {
