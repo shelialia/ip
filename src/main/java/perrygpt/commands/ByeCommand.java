@@ -5,7 +5,7 @@ import perrygpt.tasks.TaskList;
 import perrygpt.ui.Ui;
 
 /**
- * Represents a command to terminate the application.
+ * Represents a command to terminate the current user session.
  */
 public class ByeCommand extends Command {
 
