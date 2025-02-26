@@ -72,7 +72,7 @@ You may ask Ferb to delete a task by the task ID
    * You should see a message from Ferb to signal that the task has been deleted successfully.
 
 #### ⭐ Mark or Unmark tasks
-You may mark or unmark task by the task ID
+You may ask Ferb to mark or unmark task by the task ID
    * Usage: `mark <task_id>` or `unmark <task_id>` 
    * Example: `mark 2` or `unmark 3`
    * You should see a message from Ferb to signal that the task has been marked or unmark successfully.
