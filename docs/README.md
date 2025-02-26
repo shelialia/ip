@@ -66,7 +66,7 @@ You may ask Ferb to search for all tasks containing a specific keyword
    * You should see a message from Ferb with a list of all tasks containing that keyword
 
 #### ⭐ Delete tasks
-You may delete a task by the task ID
+You may ask Ferb to delete a task by the task ID
    * Usage: `delete <task_id>`
    * Example: `delete 2`
    * You should see a message from Ferb to signal that the task has been deleted successfully.
