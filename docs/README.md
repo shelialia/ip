@@ -61,7 +61,7 @@ You may ask Ferb to list all the tasks currently stored
    * You should see a message from Ferb containing a list of all the tasks. 
 
 #### ⭐ Find all tasks containing a keyword
-You may search for all tasks containing a specific keyword
+You may ask Ferb to search for all tasks containing a specific keyword
    * Usage: `find`
    * You should see a message from Ferb with a list of all tasks containing that keyword
 
