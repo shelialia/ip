@@ -29,7 +29,7 @@ public class UnmarkCommand extends Command {
      * @param tasks   The task list containing the task to be unmarked.
      * @param ui      The user interface for displaying messages.
      * @param storage The storage system for saving the updated task list.
-     * @return A success message indicating that the task has been unmarked.
+     * @return A success message indicating that the task has been unmarked successfully.
      * @throws PerryGPTException If the task index is invalid.
      * @throws IOException   If an error occurs while saving the updated task list.
      */
